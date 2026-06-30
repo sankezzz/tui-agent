@@ -61,7 +61,7 @@ Label {
         #whenever the listview is selected 
         info=self.data[event.item] #lookup in the dict
         # detail = self.query_one("#detail", Static) #find the widget with id = detail we create a new detail widget here to show the widget 
-        # detail.update(f"{info['title']}\n\n{info['description']}") # this gives a static title and desc 
+        # detail.update(f"{info['title']}\n\n{info['des/cription']}") # this gives a static title and desc 
         panel = self.query_one("#detail", Vertical)
         await panel.remove_children()               # clear whatever was there
         await panel.mount(Static(info["title"]))    # mount fresh widgets

@@ -12,13 +12,14 @@ client = Groq(
 
 def chatGroq(user_prompt):
     chat_completion = client.chat.completions.create(
+        include_reasoning=False,
         messages=[
             # Set an optional system message. This sets the behavior of the
             # assistant and can be used to provide specific instructions for
             # how it should behave throughout the conversation.
             {
                 "role": "system",
-                "content": "You are a personal code assistant for me you will help me with various things in ongoing projects you will guide me as a senior and will provide code with the proper short explantion"
+                "content": "You are a personal code assistant for me you will help me with various things in ongoing projects you will guide me as a senior and will provide code with the proper short explantion -- give code directly no bs at all mostly be clear precise "
             },
             # Set a user message for the assistant to respond to.
             {

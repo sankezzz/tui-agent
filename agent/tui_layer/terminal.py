@@ -1,6 +1,6 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Input, ListView, ListItem, Label , Markdown
-
+from memory_layer.working_memory.working import WorkingMemory
 from groq_layer.groq_llm import chatGroq
 
 
@@ -33,6 +33,7 @@ Label {
         groq_thinking="Qwen is thinking .............. "
         new_row = ListItem(Label(groq_thinking))        # build one row
         self.query_one(ListView).append(new_row)
+        
         groq_fail="groq did not respond "
         if not text:                           # ignore empty Enters
             return

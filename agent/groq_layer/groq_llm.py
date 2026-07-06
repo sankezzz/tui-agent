@@ -31,7 +31,6 @@ def chatGroq(user_prompt):
         # The language model which will generate the completion.
         model="qwen/qwen3-32b"
     )
-    print(chat_completion.choices[0].message.content)
     return chat_completion.choices[0].message.content
 
 

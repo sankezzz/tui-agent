@@ -10,7 +10,8 @@ client = Groq(
     api_key=groq_api_key,
 )
 
-def chatGroq(user_prompt):
+
+def chatGroq(history):
     chat_completion = client.chat.completions.create(
         include_reasoning=False,
         messages=[
@@ -19,13 +20,10 @@ def chatGroq(user_prompt):
             # how it should behave throughout the conversation.
             {
                 "role": "system",
-                "content": "You are a personal code assistant for me you will help me with various things in ongoing projects you will guide me as a senior and will provide code with the proper short explantion -- give code directly no bs at all mostly be clear precise "
+                "content": "You are a personal code assistant for me you will help me with various things in ongoing projects you will guide me as a senior and will provide code with the proper short explantion -- give code directly no bs at all mostly be clear precise ",
             },
             # Set a user message for the assistant to respond to.
-            {
-                "role": "user",
-                "content": user_prompt,
-            }
+            *history
         ],
 
         # The language model which will generate the completion.

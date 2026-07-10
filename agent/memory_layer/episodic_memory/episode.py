@@ -31,7 +31,7 @@ class EpisodicMemory:
                 f"{what_worked}\n"
                 f"{what_to_avoid}\n"
                 f"{' '.join(context_tags)}"
-)
+            )
 
         collection.add(
             ids=[str(uuid.uuid4())],

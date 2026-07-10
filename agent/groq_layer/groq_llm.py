@@ -2,7 +2,6 @@ from groq import Groq
 import os
 from dotenv import load_dotenv
 import json
-from langchain_core.output_parsers import JsonOutputParser
 
 
 load_dotenv()

@@ -1,13 +1,18 @@
 from groq_layer.groq_llm import chatGroq,createEpisodeReflection
 import chromadb
 import uuid
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-client = chromadb.Client()
+client = chromadb.CloudClient(
+  api_key=os.getenv("CHROMA_API"),
+  tenant='d203d676-491c-4155-a116-ac2a54b33abd',
+  database='tui-memory'
+)
 
-try:
-    collection = client.get_collection("episodic-memory")
-except:
-    collection = client.create_collection("episodic-memory")
+collection = client.get_collection("episodic-memory")
+# here i need to add a try catch with all the nessecary things like connection err and other things     
 
 
 class EpisodicMemory:

@@ -55,4 +55,12 @@ class EpisodicMemory:
             query_texts=[current_query],
             n_results=2
         )
-        return results
+
+        metadata=results["metadatas"]
+
+        previous_memory=f"""
+        This is the previous matching conversations with the user 
+        you will find useful information here too - see tehse things and rectify over the current context 
+        --------- this is the metadata  {metadata}
+    """
+        return previous_memory

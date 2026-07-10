@@ -10,8 +10,9 @@ class TestingIngest:
         self.memory=WorkingMemory()
 
 
-    def give_memory_output(self,user_input):
+    def give_memory_output(self,user_input,previous_history):
         self.memory.add_user(user_input)
+        self.memory.add_history(previous_history)
         response=chatGroq(self.memory.history())
         self.memory.add_assistant(response)
         print("Bot Response : ",response)
@@ -26,8 +27,14 @@ class TestingIngest:
 tester=TestingIngest()
 episode=EpisodicMemory()
 
+user_input_count=3
 while True:
     user=input("give some prompt : ")
+    print("getting previous memory -------")
+    previous_memory=episode.get_previous_episode(user)
+    print("---------------------previous memory---------------------------------")
+    print(previous_memory)
+    
     if user=="exit":
         print("-------------------------reflection-----------------------------------------------")
         reflection=episode.create_an_episode(history,1)
@@ -35,7 +42,7 @@ while True:
         print("Reflection after saving : ",reflection )
         break
 
-    history=tester.give_memory_output(user_input=user)
+    history=tester.give_memory_output(user_input=user,previous_history=previous_memory)
     
 
     

@@ -11,3 +11,6 @@ class WorkingMemory:
 
     def history(self):
         return self._messages
+    
+    def add_history(self,previous_history):
+        return self._messages.append({"role":"system","content":previous_history})

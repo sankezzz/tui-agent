@@ -10,19 +10,19 @@ from groq_layer.groq_llm import chatGroq
 
 class MyApp(App):
     CSS="""
-    Screen {
-    align: center middle;
+   Screen {
+    layout: vertical;
 }
 
 ListView {
-    width: auto;
-    height: auto;
-    margin: 2 2;
+    height: 3fr;
+    width: 100%;
 }
 
-Label {
-    padding: 1 2;
+Input {
+    dock: bottom;
 }
+
 """
 
     def on_mount(self):
@@ -50,7 +50,7 @@ Label {
     def get_bot_response(self,text:str,thinking_row:ListItem,exclusive=True )-> None:
         previous_memory=self.episode.get_previous_episode(text)
         self.memory.add_user(text=text)
-        self.memory.add_history(previous_history=previous_memory)
+        self.memory.set_episodic_context(previous_history=previous_memory)
 
         response=chatGroq(self.memory.history())
 
@@ -82,6 +82,8 @@ Label {
         thinking_row=ListItem(Label("Qwen is thinking ... "))
         self.query_one(ListView).append(user_query)
         self.query_one(ListView).append(thinking_row)
+        self.query_one(ListView).scroll_end(animate=True)
+
 
         self.get_bot_response(text,thinking_row)
 

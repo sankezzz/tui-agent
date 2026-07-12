@@ -2,6 +2,7 @@ from groq import Groq
 import os
 from dotenv import load_dotenv
 import json
+import re
 
 
 load_dotenv()
@@ -11,6 +12,14 @@ groq_api_key=os.getenv("GROQ_API_KEY")
 client = Groq(
     api_key=groq_api_key,
 )
+
+
+
+def _extract_json(text: str) -> str:
+    match = re.search(r"\{.*\}", text, re.DOTALL)
+    if not match:
+        raise ValueError("No JSON object found in Groq's reflection response")
+    return match.group(0)
 
 
 def chatGroq(history):
@@ -108,7 +117,8 @@ def createEpisodeReflection(history):
         ],
         model="qwen/qwen3-32b"
     )
-    if episode_data.choices[0].message.content is None:
+    content = episode_data.choices[0].message.content
+    if content is None:
         raise ValueError("Groq did not give the reflection")
+    return json.loads(_extract_json(content))
 
-    return json.loads(episode_data.choices[0].message.content) 
